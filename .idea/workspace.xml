@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -8,11 +9,16 @@
       <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
+=======
+  <component name="ChangeListManager">
+    <list default="true" id="3b4e06de-5de0-48b6-830d-5d5a5cef08c3" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< Updated upstream
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -20,23 +26,33 @@
       </list>
     </option>
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectId" id="2JsBM33heqmBe9l1TuHIceNMzlo" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
+=======
+  <component name="ProjectId" id="2JsB82eRBVusafMBYYYirPysi1i" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> Stashed changes
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+<<<<<<< Updated upstream
     "DefaultHtmlFileTemplate": "HTML File",
+=======
+>>>>>>> Stashed changes
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true"
   }
@@ -44,11 +60,19 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="79465208-9a11-40f9-95b7-358ea5c41344" name="Changes" comment="" />
       <created>1672856865127</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1672856865127</updated>
+=======
+      <changelist id="3b4e06de-5de0-48b6-830d-5d5a5cef08c3" name="Changes" comment="" />
+      <created>1672856751775</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672856751775</updated>
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
