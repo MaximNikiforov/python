@@ -1,0 +1,14 @@
+CREATE TABLE GROUPMATES (
+  id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  age INTEGER NOT NULL,
+  address TEXT NOT NULL
+);
+
+INSERT INTO GROUPMATES VALUES (0001, 'Николай', 25, 'Хорошёвское шоссе, 84к2, Москва');
+INSERT INTO GROUPMATES VALUES (0002, 'Анна', 24, 'Верхняя улица, 6, Москва');
+INSERT INTO GROUPMATES VALUES (0003, 'Виталий', 31, 'Биржевая площадь, 1, Москва');
+INSERT INTO GROUPMATES VALUES (0004, 'Катя', 27, 'Большой Кисловский переулок, 4с2, Москва');
+INSERT INTO GROUPMATES VALUES (0005, 'Саша', 28, '2-й Кадашёвский переулок, 8, Москва');
+
+SELECT * FROM GROUPMATES;
