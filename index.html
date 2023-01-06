@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Script</title>
+    <style>
+        html {
+            background-color: #9BCA9B;
+            font: 16px din pro,sans-serif;
+        }
+        body {
+            width: 700px;
+            margin: 50px auto;
+            padding: 0 20px 20px 20px;
+        }
+        h2 {
+            color: #00820F;
+        }
+        button {
+            background-color: #00A814;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition-duration: 0.4s;
+        }
+        button:hover {
+            background-color: #00820F;
+            color: #9BCA9B;
+        }
+        button:active {
+            background-color: #00820F;
+            transform: translateY(2px);
+            transition-duration: 0s;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        Ввод имени после нажатия на кнопку. <br> Вывод имени при повторном нажатии.
+    </h2>
+    <button name="button1" onclick="showMessage()">
+        Нажми на меня
+    </button>
+    <button name="button2" onclick="clean()">
+        Очистить
+    </button>
+    <script>
+        function showMessage() {
+            if (document.getElementById("b1").innerHTML == '') {
+                text = prompt("Введите своё имя: ", "Имя");
+                document.getElementById("b1").innerHTML = 'Привет, ' + text + '!'
+            } else {
+            alert("Ваше имя: " + text);
+            }
+        }
+        function clean() {
+            document.getElementById("b1").innerHTML = ''
+        }
+    </script>
+    <h2 id="b1"></h2>
+</body>
+</html>
