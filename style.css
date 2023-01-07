@@ -1,0 +1,40 @@
+html {
+    background-color: #CBEFF5;
+    font: 16px din pro,sans-serif;
+}
+h1 {
+    color: #9E6827;
+    text-shadow: 2px 1px 3px #754100;
+}
+h2 {
+    color: #EB8E1C
+}
+ul {
+    color: #9E7013;
+
+}
+ol {
+    color: #9E7013;
+
+}
+a {
+    color: #EBAE34;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    color: #9E7013
+}
+p {
+    color: #9E7013
+}
+body {
+    width: 700px;
+    margin: 0 auto;
+    padding: 0 20px 20px 20px;
+}
+img {
+    border: 3px solid #EB8E1C;
+    display: block;
+    margin: 0 auto
+}
