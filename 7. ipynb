@@ -1,0 +1,279 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Задача:**\n",
+        "\n",
+        "Мы запустили А/В тест Длительностью 10 дней.На каждую метрику направили по 10 000  юзеров. Ошибка первого рода 0.05. На основе выбранных данных, выберите 2 A/B-теста и составьте план эксперимента, чтобы избежать ошибки Peeking Problem\n",
+        "\n",
+        "\n",
+        "Ключевые метрики:\n",
+        "\n",
+        "1. Количество новых регистраций пользователей\n",
+        "2. Доход от новых пользователей\n",
+        "\n",
+        
+        
+        " Гипотеза: Если предложить 10% скидку на первую покупку для новых пользователей, то мы сможем повысить количество регистраций новых пользователей на 15%.\n",
+        "\n",
+        "Что мы делаем в каждой из групп: Даём код на 10% скидку на первую покупку.\n",
+        "\n",
+        "На каких пользователях мы тестируем: Новые пользователи, которые раньше не делали покупок на сайте.\n",
+        "\n",
+        "Метрика: количество новых регистраций пользователей.\n",
+        "\n",
+        
+        
+        "2. Гипотеза: Если предоставить персонализированные рекомендации по продуктам новым пользователям на основе их истории просмотров и покупательского поведения, то сможем повысить показатель дохода от новых пользователей на n%.\n",
+        "\n",
+        "Что мы делаем в каждой из групп: группа новых пользователей получает персонализированные рекомендации.\n",
+        "\n",
+        "На каких пользователях мы тестируем: На новых пользователях, совершивших хотя бы одну покупку на сайте\n",
+        "\n",
+        "Метрика: доход от новых пользователей."
+      ],
+      "metadata": {
+        "id": "BkDrEAIk2aV3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Решение:**\n",
+        "\n",
+        "1. Соберём данные о регистрациях и доходах для контрольной и тестовой групп.\n",
+        "2. Разделим данные на выборки – каждая выборка будет содержать 10,000 пользователей.\n",
+        "3. Для каждой выборки будем считать количество новых регистраций и доход от новых пользователей для контрольной и тестовой групп.\n",
+        "4. С помощью бутстрапа будем генерировать 1000 выборок с возвращением.\n",
+        "5. Для каждой выборки будем считать различие между контрольной и тестовой групп в количестве новых регистраций и доходе от новых пользователей.\n",
+        "6. Построим распределение полученных различий, оценим доверительные интервалы для обеих метрик.\n",
+        "7. Если доверительный интервал не содержит 0 (для метрики регистраций) или отрицательных значений (для метрики дохода), то можем сделать вывод о том, что эксперимент был успешным и можно внедрять новые подходы в работу сервиса.\n"
+      ],
+      "metadata": {
+        "id": "laMHHNjo2BrF"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Определяем ключевые билиотеки:"
+      ],
+      "metadata": {
+        "id": "0Zna4wws1zqG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 8,
+      "metadata": {
+        "id": "T5S_9Hjr937u"
+      },
+      "outputs": [],
+      "source": [
+        "\n",
+        "import numpy as np\n",
+        "import pandas as pd\n",
+        "from scipy.stats import norm"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Собираем данные:"
+      ],
+      "metadata": {
+        "id": "4Ih_svKO1si_"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "control_registrations = 10000\n",
+        "test_registrations = 10000\n",
+        "control_income = 1000000\n",
+        "test_income = 1000000"
+      ],
+      "metadata": {
+        "id": "eAA6QXJ73nkx"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        " Разделяем данные на выборки:"
+      ],
+      "metadata": {
+        "id": "B0tAT4eT33OV"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "control_registrations_list = np.random.binomial(n=1, p=0.05, size=control_registrations)\n",
+        "test_registrations_list = np.random.binomial(n=1, p=0.05, size=test_registrations)\n",
+        "control_income_list = np.random.normal(loc=100, scale=20, size=control_income)\n",
+        "test_income_list = np.random.normal(loc=110, scale=20, size=test_income)"
+      ],
+      "metadata": {
+        "id": "dT4s6Rga37Be"
+      },
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Считаем количество регистраций и доход для контрольной и тестовой групп:"
+      ],
+      "metadata": {
+        "id": "zEc4pV7C4DI-"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "control_registrations_num = sum(control_registrations_list)\n",
+        "test_registrations_num = sum(test_registrations_list)\n",
+        "control_income_sum = sum(control_income_list)\n",
+        "test_income_sum = sum(test_income_list)"
+      ],
+      "metadata": {
+        "id": "1EWyzXc04MiA"
+      },
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        " Проводим бутстрап:"
+      ],
+      "metadata": {
+        "id": "MBeRk3s54XWs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "n = 1000\n",
+        "differences_registrations = []\n",
+        "differences_income = []\n",
+        "\n",
+        "for i in range(n):\n",
+        "    control_registrations_sample = np.random.choice(control_registrations_list, size=10000, replace=True)\n",
+        "    test_registrations_sample = np.random.choice(test_registrations_list, size=10000, replace=True)\n",
+        "    control_income_sample = np.random.choice(control_income_list, size=10000, replace=True)\n",
+        "    test_income_sample = np.random.choice(test_income_list, size=10000, replace=True)\n",
+        "\n",
+        "    sample_diff_registrations = sum(test_registrations_sample) - sum(control_registrations_sample)\n",
+        "    sample_diff_income = sum(test_income_sample) - sum(control_income_sample)\n",
+        "\n",
+        "    differences_registrations.append(sample_diff_registrations)\n",
+        "    differences_income.append(sample_diff_income)"
+      ],
+      "metadata": {
+        "id": "Mu_vC8Qi4g8t"
+      },
+      "execution_count": 12,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Оцениваем доверительный интервал для количества регистраций:"
+      ],
+      "metadata": {
+        "id": "eNLar5W041U-"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "difference_registrations_mean = np.mean(differences_registrations)\n",
+        "difference_registrations_std = np.std(differences_registrations)\n",
+        "ci_registrations = norm.interval(0.95, loc=difference_registrations_mean, scale=difference_registrations_std/np.sqrt(n))\n",
+        "print(\"95% доверительный интервал для количества регистраций: \", ci_registrations)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "CnVQZkL949jW",
+        "outputId": "0619def7-dedd-4392-bb03-5e281b0ec3ba"
+      },
+      "execution_count": 13,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "95% доверительный интервал для количества регистраций:  (2.1601414525188245, 6.085858547481176)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Оцениваем доверительный интервал для дохода:"
+      ],
+      "metadata": {
+        "id": "a88nOvTe5KHX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "difference_income_mean = np.mean(differences_income)\n",
+        "difference_income_std = np.std(differences_income)\n",
+        "ci_income = norm.interval(0.95, loc=difference_income_mean, scale=difference_income_std/np.sqrt(n))\n",
+        "print(\"95% доверительный интервал для дохода: \", ci_income)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "zx03KCPL5Tn0",
+        "outputId": "043d8ac2-7aae-4646-f54b-5fbffc48c446"
+      },
+      "execution_count": 14,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "95% доверительный интервал для дохода:  (99828.60908853346, 100189.4563152156)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Ответ:**\n",
+        "\n",
+        "Так как, доверительный интервал не содержит 0 (для метрики регистраций) и отрицательных значений (для метрики дохода), то можем сделать вывод о том, что эксперимент был успешным и можно внедрять новые подходы в работу сервиса."
+      ],
+      "metadata": {
+        "id": "jVrS1oyu6HQt"
+      }
+    }
+  ]
+}
