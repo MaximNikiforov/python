@@ -21,7 +21,7 @@ data = [("1", "1","5","java","author1"),
         ("3", "1","5","python","author3")]
 if 1==1:
      w = Window.partitionBy(lit(1)).orderBy("№").rowsBetween(Window.unboundedPreceding, Window.currentRow)
-     sql.execute("""drop table if exists spark.`tasketl4c`""",con)
+     sql.execute("""drop table if exists `tasketl4c`""",con)
      sql.execute("""CREATE TABLE `tasketl4c` (
 	`№` INT(10) NULL DEFAULT NULL,
 	`Месяц` DATE NULL DEFAULT NULL,
@@ -31,11 +31,9 @@ if 1==1:
 	`Остаток долга` FLOAT NULL DEFAULT NULL,
 	`Проценты` FLOAT NULL DEFAULT NULL,
 	`Долг` FLOAT NULL DEFAULT NULL
-)
-COLLATE='utf8mb4_0900_ai_ci'
-ENGINE=InnoDB
-;
-""",con)
+     )
+     COLLATE='utf8mb4_0900_ai_ci'
+     ENGINE=InnoDB""",con)
      df1 = spark.read.format("com.crealytics.spark.excel")\
         .option("sheetName", "Sheet1")\
         .option("useHeader", "false")\
@@ -51,10 +49,29 @@ ENGINE=InnoDB
         .format("excel")\
         .load("/Users/Xiaomi/Desktop/Geekbrains_ETL/s4_2.xlsx")\
         .withColumn("Проценты", sum1(col("Платеж по процентам")).over(w))\
-        .withColumn("Долг", sum1(col("Платеж по основному долгу")).over(w))\
-        .write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=1q2w3e")\
+        .withColumn("Долг", sum1(col("Платеж по основному долгу")).over(w))
+     df1.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=1q2w3e")\
         .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl4c")\
-        .mode("overwrite").save()
+        .mode("append").save()
+     df2 = df1.toPandas()
+# Get current axis
+     ax = plt.gca()
+     ax.ticklabel_format(style='plain')
+# bar plot
+     df2.plot(kind='line',
+     x='№',
+     y='Долг',
+     color='green', ax=ax)
+     df2.plot(kind='line',
+     x='№',
+     y='Проценты',
+     color='red', ax=ax)
+# set the title
+     plt.title('Выплаты')
+     plt.grid ( True )
+     ax.set(xlabel=None)
+# show the plot
+plt.show()
 spark.stop()
 t1=time.time()
 print('finished',time.strftime('%H:%M:%S',time.gmtime(round(t1-t0))))
