@@ -3,75 +3,96 @@ from datetime import datetime
 from pyspark.sql.session import SparkSession
 from pyspark.sql.functions import col,lit,current_timestamp
 import pandas as pd
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 from sqlalchemy import inspect,create_engine
 from pandas.io import sql
 import warnings,matplotlib
 from pyspark.sql.window import Window
 from pyspark.sql.functions import sum as sum1
+
 warnings.filterwarnings("ignore")
-t0=time.time()
-con=create_engine("mysql://root:1q2w3e@localhost/spark")
+t0 = time.time()
+con = create_engine("mysql://root:1q2w3e@localhost/spark")
 os.environ['PYSPARK_PYTHON'] = sys.executable
 os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
-spark=SparkSession.builder.appName("Hi").getOrCreate()
-columns = ["id","category_id","rate","title","author"]
-data = [("1", "1","5","java","author1"),
-        ("2", "1","5","scala","author2"),
-        ("3", "1","5","python","author3")]
-if 1==1:
-     w = Window.partitionBy(lit(1)).orderBy("№").rowsBetween(Window.unboundedPreceding, Window.currentRow)
-     sql.execute("""drop table if exists `tasketl4c`""",con)
-     sql.execute("""CREATE TABLE `tasketl4c` (
-	`№` INT(10) NULL DEFAULT NULL,
-	`Месяц` DATE NULL DEFAULT NULL,
-	`Сумма платежа` FLOAT NULL DEFAULT NULL,
-	`Платеж по основному долгу` FLOAT NULL DEFAULT NULL,
-	`Платеж по процентам` FLOAT NULL DEFAULT NULL,
-	`Остаток долга` FLOAT NULL DEFAULT NULL,
-	`Проценты` FLOAT NULL DEFAULT NULL,
-	`Долг` FLOAT NULL DEFAULT NULL
-     )
-     COLLATE='utf8mb4_0900_ai_ci'
-     ENGINE=InnoDB""",con)
-     df1 = spark.read.format("com.crealytics.spark.excel")\
-        .option("sheetName", "Sheet1")\
-        .option("useHeader", "false")\
-        .option("treatEmptyValuesAsNulls", "false")\
-        .option("inferSchema", "true").option("addColorColumns", "true")\
-	.option("usePlainNumberFormat","true")\
-        .option("startColumn", 0)\
-        .option("endColumn", 99)\
-        .option("timestampFormat", "MM-dd-yyyy HH:mm:ss")\
-        .option("maxRowsInMemory", 20)\
-        .option("excerptSize", 10)\
-        .option("header", "true")\
-        .format("excel")\
-        .load("/Users/Xiaomi/Desktop/Geekbrains_ETL/s4_2.xlsx")\
-        .withColumn("Проценты", sum1(col("Платеж по процентам")).over(w))\
-        .withColumn("Долг", sum1(col("Платеж по основному долгу")).over(w))
-     df1.write.format("jdbc").option("url","jdbc:mysql://localhost:3306/spark?user=root&password=1q2w3e")\
-        .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", "tasketl4c")\
-        .mode("append").save()
-     df2 = df1.toPandas()
+spark = SparkSession.builder.appName("Hi").getOrCreate()
+if 1 == 1:
+    w = Window.partitionBy(lit(1)).orderBy("№").rowsBetween(Window.unboundedPreceding, Window.currentRow)
+    index = 1
+    sql.execute("""drop table if exists `hw_4_1`""", con)
+    sql.execute("""drop table if exists `hw_4_2`""", con)
+    sql.execute("""drop table if exists `hw_4_3`""", con)
+    sql.execute("""CREATE TABLE `hw_4_1` (
+                     `№` INT(10) NULL DEFAULT NULL,
+                     `Месяц` DATE NULL DEFAULT NULL,
+                     `Сумма платежа` FLOAT NULL DEFAULT NULL,
+                     `Платеж по основному долгу` FLOAT NULL DEFAULT NULL,
+                     `Платеж по процентам` FLOAT NULL DEFAULT NULL,
+                     `Остаток долга` FLOAT NULL DEFAULT NULL,
+                     `Проценты` FLOAT NULL DEFAULT NULL,
+                     `Долг` FLOAT NULL DEFAULT NULL
+                  )
+                  COLLATE='utf8mb4_0900_ai_ci'
+                  ENGINE=InnoDB""", con)
+    sql.execute("""CREATE TABLE `hw_4_2` (
+                     `№` INT(10) NULL DEFAULT NULL,
+                     `Месяц` DATE NULL DEFAULT NULL,
+                     `Сумма платежа` FLOAT NULL DEFAULT NULL,
+                     `Платеж по основному долгу` FLOAT NULL DEFAULT NULL,
+                     `Платеж по процентам` FLOAT NULL DEFAULT NULL,
+                     `Остаток долга` FLOAT NULL DEFAULT NULL,
+                     `Проценты` FLOAT NULL DEFAULT NULL,
+                     `Долг` FLOAT NULL DEFAULT NULL
+                  )
+                  COLLATE='utf8mb4_0900_ai_ci'
+                  ENGINE=InnoDB""", con)
+    sql.execute("""CREATE TABLE `hw_4_3` (
+                     `№` INT(10) NULL DEFAULT NULL,
+                     `Месяц` DATE NULL DEFAULT NULL,
+                     `Сумма платежа` FLOAT NULL DEFAULT NULL,
+                     `Платеж по основному долгу` FLOAT NULL DEFAULT NULL,
+                     `Платеж по процентам` FLOAT NULL DEFAULT NULL,
+                     `Остаток долга` FLOAT NULL DEFAULT NULL,
+                     `Проценты` FLOAT NULL DEFAULT NULL,
+                     `Долг` FLOAT NULL DEFAULT NULL
+                  )
+                  COLLATE='utf8mb4_0900_ai_ci'
+                  ENGINE=InnoDB""", con)
+    
+    while index < 4:
+         sheetName = f"Лист{index}"
+         t_name = f"hw_4_{index}"
+         print(index, sheetName, t_name)
+         pdf = pd.read_excel("/Users/Xiaomi/Desktop/Geekbrains_ETL/s4_2.xlsx", sheet_name=sheetName)
+         df = spark.createDataFrame(pdf)\
+             .withColumn("Проценты", sum1(col("Платеж по процентам")).over(w))\
+             .withColumn("Долг", sum1(col("Платеж по основному долгу")).over(w))
+         df.show(5)
+         df.write.format("jdbc").option("url", "jdbc:mysql://localhost:3306/spark?user=root&password=1q2w3e") \
+            .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", t_name) \
+            .mode("append").save()
+         index += 1
+    df2 = df.toPandas()
 # Get current axis
-     ax = plt.gca()
-     ax.ticklabel_format(style='plain')
+    ax = plt.gca()
+    ax.ticklabel_format(style='plain')
 # bar plot
-     df2.plot(kind='line',
-     x='№',
-     y='Долг',
-     color='green', ax=ax)
-     df2.plot(kind='line',
-     x='№',
-     y='Проценты',
-     color='red', ax=ax)
+    df2.plot(kind='line',
+    x='№',
+    y='Долг',
+    color='green', ax=ax)
+    df2.plot(kind='line',
+    x='№',
+    y='Проценты',
+    color='red', ax=ax)
 # set the title
-     plt.title('Выплаты')
-     plt.grid ( True )
-     ax.set(xlabel=None)
+    plt.title('Выплаты')
+    plt.grid ( True )
+    ax.set(xlabel=None)
 # show the plot
 plt.show()
+
+
 spark.stop()
-t1=time.time()
-print('finished',time.strftime('%H:%M:%S',time.gmtime(round(t1-t0))))
+t1 = time.time()
+print('finished', time.strftime('%H:%M:%S', time.gmtime(round(t1 - t0))))
