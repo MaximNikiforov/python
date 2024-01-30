@@ -58,11 +58,11 @@ if 1 == 1:
                   )
                   COLLATE='utf8mb4_0900_ai_ci'
                   ENGINE=InnoDB""", con)
-    
+    df3 = pd.DataFrame()
     while index < 4:
          sheetName = f"Лист{index}"
          t_name = f"hw_4_{index}"
-         print(index, sheetName, t_name)
+         print(sheetName)
          pdf = pd.read_excel("/Users/Xiaomi/Desktop/Geekbrains_ETL/s4_2.xlsx", sheet_name=sheetName)
          df = spark.createDataFrame(pdf)\
              .withColumn("Проценты", sum1(col("Платеж по процентам")).over(w))\
@@ -72,21 +72,20 @@ if 1 == 1:
             .option("driver", "com.mysql.cj.jdbc.Driver").option("dbtable", t_name) \
             .mode("append").save()
          index += 1
-    df2 = df.toPandas()
+         df2 = df.toPandas()
+         df3 = pd.concat([df3, df2], axis=1, ignore_index=True)
+     
 # Get current axis
     ax = plt.gca()
     ax.ticklabel_format(style='plain')
 # bar plot
-    df2.plot(kind='line',
-    x='№',
-    y='Долг',
-    color='green', ax=ax)
-    df2.plot(kind='line',
-    x='№',
-    y='Проценты',
-    color='red', ax=ax)
+    df3.plot(kind='line',
+             x=0,
+             y=[6,7,14,15,22,23],
+             ax=ax)
 # set the title
     plt.title('Выплаты')
+    ax.legend(["Проценты", "Долг", "Проценты120", "Долг120", "Проценты150", "Долг150"])
     plt.grid ( True )
     ax.set(xlabel=None)
 # show the plot
