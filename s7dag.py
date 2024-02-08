@@ -5,7 +5,17 @@ from datetime import datetime, timedelta
 import pendulum
 import requests
 import pandas as pd
-from sqlalchemy import create_engine
+import pyspark,time,platform,sys,os
+from datetime import datetime
+from pyspark.sql.session import SparkSession
+from pyspark.sql.functions import col,lit,current_timestamp
+import matplotlib.pyplot as plt
+from sqlalchemy import inspect,create_engine
+from pandas.io import sql
+import warnings,matplotlib
+from pyspark.sql.window import Window
+from pyspark.sql.functions import sum as sum1
+
 default_args = {
 'owner': 'AGanshin',
 'depends_on_past': False,
@@ -138,6 +148,31 @@ def temp_sql(ti):
     df.to_sql("hw_7_temp", con, if_exists='append', index=False)
     
     return df.head()
+    
+def plot_4():
+
+    con = create_engine("mysql://Airflow:1@localhost/spark")
+    df1 = pd.read_sql_table('hw_4_1', con)
+    df2 = pd.read_sql_table('hw_4_2', con)
+    df3 = pd.read_sql_table('hw_4_3', con)
+    df4 = pd.concat([df1, df2, df3], axis=1, ignore_index=True)
+    # Get current axis
+    ax = plt.gca()
+    ax.ticklabel_format(style='plain')
+# bar plot
+    df4.plot(kind='line',
+             x=0,
+             y=[6,7,14,15,22,23],
+             ax=ax)
+# set the title
+    plt.title('Выплаты')
+    ax.legend(["Проценты", "Долг", "Проценты120", "Долг120", "Проценты150", "Долг150"])
+    plt.grid ( True )
+    ax.set(xlabel=None)
+# show the plot
+    plt.show()
+    plt.savefig('4.png')
+    return "4.png saved"
 
 with DAG(
 
@@ -150,6 +185,14 @@ with DAG(
         tags=['homework_ETL'],
 
 ) as dag:
+
+    plot_4_task = PythonOperator(
+
+        task_id='plot_4_task',
+
+        python_callable=plot_4,
+
+    )
 
     hw_7_get_temperature_task = PythonOperator(
 
