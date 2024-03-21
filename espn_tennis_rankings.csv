@@ -1,151 +1,151 @@
-rank,points,age
-1,9725,36
-2,8805,20
-3,8310,22
-4,7765,28
-5,5060,26
-6,4970,26
-7,3875,20
-8,3560,25
-9,3370,27
-10,3300,25
-11,3255,25
-12,2935,32
-13,2935,26
-14,2430,26
-15,2420,25
-16,2265,27
-17,2220,21
-18,2002,26
-19,1990,23
-20,1955,35
-21,1845,25
-22,1805,26
-23,1575,28
-24,1520,22
-25,1484,33
-26,1450,27
-27,1435,22
-28,1425,24
-29,1395,23
-30,1325,24
-31,1250,28
-32,1233,27
-33,1214,27
-34,1211,29
-35,1180,28
-36,1165,23
-37,1128,19
-38,1096,23
-39,1085,26
-40,1076,27
-41,1073,30
-42,1071,22
-43,1066,33
-44,1040,26
-45,1032,24
-46,1030,24
-47,1027,37
-48,1006,24
-49,1005,27
-50,1002,29
-51,1000,30
-52,957,33
-53,955,28
-54,951,25
-55,943,23
-56,940,32
-57,929,24
-58,924,23
-59,899,23
-60,891,23
-61,887,27
-62,870,36
-63,865,21
-64,851,30
-65,834,27
-66,833,29
-67,823,25
-68,796,25
-69,790,28
-70,781,18
-71,778,28
-72,776,26
-73,776,19
-74,774,21
-75,771,22
-76,768,24
-77,750,28
-78,742,31
-79,739,28
-80,736,19
-81,724,23
-82,723,28
-83,717,38
-84,712,27
-85,709,27
-86,692,32
-87,687,32
-88,671,26
-89,662,23
-90,655,30
-91,651,24
-92,650,22
-93,645,31
-94,640,25
-95,637,28
-96,623,20
-97,623,26
-98,616,25
-99,615,22
-100,614,35
-101,608,27
-102,608,28
-103,601,36
-104,590,27
-105,588,36
-106,583,33
-107,577,24
-108,575,24
-109,569,32
-110,564,29
-111,558,26
-112,558,24
-113,535,27
-114,535,24
-115,533,23
-116,531,26
-117,528,23
-118,527,21
-119,522,26
-120,521,37
-121,516,30
-122,513,31
-123,512,25
-124,507,19
-125,507,26
-126,505,24
-127,505,22
-128,502,25
-129,494,22
-130,492,34
-131,489,30
-132,488,22
-133,488,22
-134,484,26
-135,482,20
-136,479,21
-137,478,27
-138,478,34
-139,476,36
-140,473,24
-141,472,22
-142,470,27
-143,469,20
-144,467,22
-145,457,27
-146,456,25
-147,451,26
-148,450,28
-149,450,22
-150,445,24
+rank,name,points,age
+1,Novak Djokovic,9725,36
+2,Carlos Alcaraz,8805,20
+3,Jannik Sinner,8310,22
+4,Daniil Medvedev,7765,28
+5,Alexander Zverev,5060,26
+6,Andrey Rublev,4970,26
+7,Holger Rune,3875,20
+8,Casper Ruud,3560,25
+9,Hubert Hurkacz,3370,27
+10,Alex De Minaur,3300,25
+11,Stefanos Tsitsipas,3255,25
+12,Grigor Dimitrov,2935,32
+13,Taylor Fritz,2935,26
+14,Tommy Paul,2430,26
+15,Ugo Humbert,2420,25
+16,Karen Khachanov,2265,27
+17,Ben Shelton,2220,21
+18,Alexander Bublik,2002,26
+19,Sebastian Baez,1990,23
+20,Adrian Mannarino,1955,35
+21,Francisco Cerundolo,1845,25
+22,Frances Tiafoe,1805,26
+23,Nicolas Jarry,1575,28
+24,Lorenzo Musetti,1520,22
+25,Jan-Lennard Struff,1484,33
+26,Tallon Griekspoor,1450,27
+27,Jiri Lehecka,1435,22
+28,Alejandro Davidovich Fokina,1425,24
+29,Sebastian Korda,1395,23
+30,Tomas Martin Etcheverry,1325,24
+31,Cameron Norrie,1250,28
+32,Christopher Eubanks,1233,27
+33,Borna Coric,1214,27
+34,Jordan Thompson,1211,29
+35,Laslo Djere,1180,28
+36,Felix Auger-Aliassime,1165,23
+37,Arthur Fils,1128,19
+38,Matteo Arnaldi,1096,23
+39,Roman Safiullin,1085,26
+40,Sebastian Ofner,1076,27
+41,Aslan Karatsev,1073,30
+42,Jack Draper,1071,22
+43,Daniel Evans,1066,33
+44,Alejandro Tabilo,1040,26
+45,Alexei Popyrin,1032,24
+46,Miomir Kecmanovic,1030,24
+47,Gael Monfils,1027,37
+48,Emil Ruusuvuori,1006,24
+49,Zhang Zhizhen,1005,27
+50,Dominik Koepfer,1002,29
+51,Marcos Giron,1000,30
+52,Dusan Lajovic,957,33
+53,Lorenzo Sonego,955,28
+54,Daniel Altmaier,951,25
+55,Facundo Diaz Acosta,943,23
+56,Yannick Hanfmann,940,32
+57,Fabian Marozsan,929,24
+58,Alexander Shevchenko,924,23
+59,Mariano Navone,899,23
+60,Tomas Machac,891,23
+61,Nuno Borges,887,27
+62,Andy Murray,870,36
+63,Flavio Cobolli,865,21
+64,Roberto Carballes Baena,851,30
+65,Aleksandar Vukic,834,27
+66,Christopher O'Connell,833,29
+67,Pavel Kotov,823,25
+68,Max Purcell,796,25
+69,Mackenzie McDonald,790,28
+70,Jakub Mensik,781,18
+71,Yoshihito Nishioka,778,28
+72,Jaume Munar,776,26
+73,Alex Michelsen,776,19
+74,Arthur Cazaux,774,21
+75,Luciano Darderi,771,22
+76,Thiago Seyboth Wild,768,24
+77,Botic Van De Zandschulp,750,28
+78,Taro Daniel,742,31
+79,Pedro Cachin,739,28
+80,Luca Van Assche,736,19
+81,Rinky Hijikata,724,23
+82,Arthur Rinderknech,723,28
+83,Stan Wawrinka,717,38
+84,Daniel Elahi Galan,712,27
+85,Alexandre Muller,709,27
+86,Marton Fucsovics,692,32
+87,Federico Coria,687,32
+88,Pedro Martinez,671,26
+89,Hugo Gaston,662,23
+90,Dominic Thiem,655,30
+91,Jurij Rodionov,651,24
+92,Brandon Nakashima,650,22
+93,Constant Lestienne,645,31
+94,J.J. Wolf,640,25
+95,Juan Pablo Varillas,637,28
+96,Luca Nardi,623,20
+97,Sumit Nagal,623,26
+98,Aleksandar Kovacevic,616,25
+99,Thiago Agustin Tirante,615,22
+100,Roberto Bautista Agut,614,35
+101,Thanasi Kokkinakis,608,27
+102,Maximilian Marterer,608,28
+103,Fabio Fognini,601,36
+104,Cristian Garin,590,27
+105,Albert Ramos-Vinolas,588,36
+106,David Goffin,583,33
+107,Corentin Moutet,577,24
+108,Zsombor Piros,575,24
+109,James Duckworth,569,32
+110,Thiago Monteiro,564,29
+111,Tomas Barrios Vera,558,26
+112,Camilo Ugo Carabelli,558,24
+113,Quentin Halys,535,27
+114,Zizou Bergs,535,24
+115,Francisco Comesana,533,23
+116,Vit Kopriva,531,26
+117,Duje Ajdukovic,528,23
+118,Dominic Stricker,527,21
+119,Borna Gojo,522,26
+120,Richard Gasquet,521,37
+121,Gregoire Barrere,516,30
+122,Diego Schwartzman,513,31
+123,Yosuke Watanuki,512,25
+124,Shang Juncheng,507,19
+125,Michael Mmoh,507,26
+126,Denis Shapovalov,505,24
+127,Otto Virtanen,505,22
+128,Lukas Klein,502,25
+129,Terence Atmane,494,22
+130,Facundo Bagnis,492,34
+131,Liam Broady,489,30
+132,Emilio Nava,488,22
+133,Gabriel Diallo,488,22
+134,Felipe Meligeni Alves,484,26
+135,Hamad Medjedovic,482,20
+136,Zachary Svajda,479,21
+137,Hugo Grenier,478,27
+138,Benoit Paire,478,34
+139,Mikhail Kukushkin,476,36
+140,Patrick Kypson,473,24
+141,Harold Mayot,472,22
+142,Matteo Berrettini,470,27
+143,Shintaro Mochizuki,469,20
+144,Giulio Zeppieri,467,22
+145,Bernabe Zapata Miralles,457,27
+146,Valentin Vacherot,456,25
+147,Alex Molcan,451,26
+148,Andrea Vavassori,450,28
+149,Matteo Gigante,450,22
+150,Adam Walton,445,24
