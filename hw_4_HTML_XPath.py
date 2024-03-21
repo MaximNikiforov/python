@@ -12,7 +12,7 @@ headers = {
 }
 
 # Выражение XPath для выбора элементов данных таблицы
-xpath = "//table[@class='ResponsiveTable']/tbody/tr"
+xpath = "//*[@id='fittPageContainer']/div[3]/div/div[1]/section/div/div/section/div[4]/div[2]/div/div[2]/table/tbody/tr"
 
 
 def get_html(url, headers):
@@ -32,23 +32,26 @@ def parse_html(html_content, xpath):
     tree = html.fromstring(html_content)
     data = []
 
-    for element in tree.xpath(xpath):
-        try:
-            value = element.text_content().strip()
-        except AttributeError:
-            value = ""
-        data.append(value)
-
+    for rows in tree.xpath(xpath):
+        columns = rows.xpath(".//td/span/text()")
+        data.append({
+            'rank': columns[0].strip(),
+            'points': columns[1].strip().replace(',', ''),
+            'age': columns[2].strip()
+        })
+    print(data)
     return data
 
 
 def save_to_csv(data, filename):
-    """Сохранение данных в CSV-файл."""
+    """Сохранение данных в CSV-файл по ячейкам."""
+    fields = ['rank', 'points', 'age']
 
     with open(filename, "w", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(data)
-    print("Данные рейтинга теннисистов ESPN успешно сохранены в CSV-файл.")
+        writer = csv.DictWriter(f, fieldnames=fields)
+        writer.writeheader()
+        writer.writerows(data)
+    print("Данные успешно сохранены в CSV-файл.")
 
 
 # main функция
