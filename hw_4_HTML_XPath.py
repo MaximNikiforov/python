@@ -36,6 +36,7 @@ def parse_html(html_content, xpath):
         columns = rows.xpath(".//td/span/text()")
         data.append({
             'rank': columns[0].strip(),
+            'trend': '-' + rows.xpath(".//td/div/text()")[0] if rows.xpath(".//td/div[@class='trend tc negative']") else rows.xpath(".//td/div/text()")[0],
             'name': rows.xpath(".//td[3]/div/a/text()")[0],
             'points': columns[1].strip().replace(',', ''),
             'age': columns[2].strip()
@@ -45,7 +46,7 @@ def parse_html(html_content, xpath):
 
 def save_to_csv(data, filename):
     """Сохранение данных в CSV-файл по ячейкам."""
-    fields = ['rank', 'name', 'points', 'age']
+    fields = ['rank', 'trend', 'name', 'points', 'age']
 
     with open(filename, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=fields)
